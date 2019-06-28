@@ -36,7 +36,7 @@
   :group 'memento-mori)
 
 (defvar memento-mori-age-string ""
-  "Your age shown in the mode line when Memento Mori mode is on.")
+  "Your age shown in the mode line when Memento-Mori mode is on.")
 
 (defun memento-mori-birth-time ()
   "Return your birth time in `encode-time' format.
@@ -70,7 +70,7 @@ This is a floating point number based on `memento-mori-birth-date'."
 (define-minor-mode memento-mori-mode
   "Toggle display of your age in the mode line.
 
-With a prefix argument ARG, enable Memento Mori mode if ARG is
+With a prefix argument ARG, enable Memento-Mori mode if ARG is
 positive, and disable it otherwise.  If called from Lisp, enable
 it if ARG is omitted or nil."
   :global t
