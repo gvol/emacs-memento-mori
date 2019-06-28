@@ -23,11 +23,13 @@
 ;;
 ;;; Code:
 
+;;;###autoload
 (defgroup memento-mori
   '((memento-mori-birth-date custom-variable))
   "Reminder of mortality."
   :group 'help)
 
+;;;###autoload
 (defcustom memento-mori-birth-date ""
   "*Your birth date in YYYY-MM-DD format."
   :type 'string
