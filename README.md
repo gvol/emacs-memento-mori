@@ -15,6 +15,14 @@ closer to being N+1 years old.
 Install from [MELPA](https://melpa.org/#/memento-mori)
 
 # Usage
-* Set `memento-mori-birth-date`
+* Set `memento-mori-birth-date` in `YYYY-MM-DD` format.
 * enable `memento-mori-mode`
 * reflect
+
+e.g. If you have something like the following in your emacs config
+```
+(setq memento-mori-birth-date "1970-01-01")
+(memento-mori-mode)
+```
+
+You'll see something like `49.54 years old` in your modeline.
