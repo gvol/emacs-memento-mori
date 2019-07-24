@@ -35,6 +35,11 @@
   :type 'string
   :group 'memento-mori)
 
+(defcustom memento-mori-suffix-string "years old"
+  "*The text appended to the end of your age in the modeline."
+  :type 'string
+  :group 'memento-mori)
+
 (defvar memento-mori-age-string ""
   "Your age shown in the mode line when Memento-Mori mode is on.")
 
@@ -64,7 +69,7 @@ This is a floating point number based on `memento-mori-birth-date'."
 (defun memento-mori-update ()
   "Update `memento-mori-age-string' based on the current time."
   (setq memento-mori-age-string
-        (format " %.2f years old" (memento-mori-age))))
+        (format " %.2f %s" (memento-mori-age) memento-mori-suffix-string)))
 
 ;;;###autoload
 (define-minor-mode memento-mori-mode
