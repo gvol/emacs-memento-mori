@@ -46,7 +46,7 @@ The birth time is parsed from `memento-mori-birth-date' using
   (when (or (null memento-mori-birth-date)
             (equal "" memento-mori-birth-date))
     (error "Birth date not set"))
-  (cl-destructuring-bind (_ _ _ day month year _ _ _)
+  (cl-destructuring-bind (_ _ _ day month year _ _ _ &optional _)
       (parse-time-string (if (stringp memento-mori-birth-date)
                              memento-mori-birth-date ""))
     (unless (and day month year)
