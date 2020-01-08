@@ -77,8 +77,8 @@ it if ARG is omitted or nil."
   :group 'memento-mori
   (cancel-function-timers #'memento-mori-update)
   (when memento-mori-mode
-    (run-at-time "00:00" (* 60 60 24) #'memento-mori-update)
-    (memento-mori-update))
+    (memento-mori-update)
+    (run-at-time "00:00" (* 60 60 24) #'memento-mori-update))
   (setq global-mode-string
         (append (delete 'memento-mori-age-string
                         (or global-mode-string '("")))
