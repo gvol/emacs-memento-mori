@@ -41,7 +41,7 @@
 (defun memento-mori--assert-birth-date ()
   (when (or (null memento-mori-birth-date)
             (equal "" memento-mori-birth-date))
-    (error "Birth date not set")))
+    (error "Birth date not set. Try M-x customize-group memento-mori")))
 
 (defun memento-mori-birth-time ()
   "Return your birth time in `encode-time' format.
