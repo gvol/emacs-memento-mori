@@ -38,14 +38,17 @@
 (defvar memento-mori-age-string ""
   "Your age shown in the mode line when Memento-Mori mode is on.")
 
+(defun memento-mori--assert-birth-date ()
+  (when (or (null memento-mori-birth-date)
+            (equal "" memento-mori-birth-date))
+    (error "Birth date not set")))
+
 (defun memento-mori-birth-time ()
   "Return your birth time in `encode-time' format.
 
 The birth time is parsed from `memento-mori-birth-date' using
 `parse-time-string'. An error is signaled if it is not valid."
-  (when (or (null memento-mori-birth-date)
-            (equal "" memento-mori-birth-date))
-    (error "Birth date not set"))
+  (memento-mori--assert-birth-date)
   (cl-destructuring-bind (_ _ _ day month year _ _ _)
       (parse-time-string (if (stringp memento-mori-birth-date)
                              memento-mori-birth-date ""))
