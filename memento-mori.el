@@ -23,6 +23,8 @@
 ;;
 ;;; Code:
 
+(require 'cl-macs)
+
 ;;;###autoload
 (defgroup memento-mori
   '((memento-mori-birth-date custom-variable))
