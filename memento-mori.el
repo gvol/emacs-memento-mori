@@ -1,4 +1,6 @@
-;;; memento-mori.el --- Reminder of mortality -*- lexical-binding: t -*-
+;;; memento-mori.el --- Reminder of our mortality  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2019-2023  Lassi Kortela
 
 ;; Author: Lassi Kortela <lassi@lassi.io>
 ;; Maintainer: Ivan Andrus <darthandrus@gmail.com>
@@ -12,33 +14,45 @@
 
 ;;; Commentary:
 
-;; Shows your age in the global mode line as a reminder to squander
-;; less of your brief time on this earth.
-
+;; Shows your age in the global mode line as a reminder to squander less
+;; of your brief time on this earth.
+;;
 ;; Your age is shown with two decimal places so you can witness it
 ;; increasing every 3-4 days.  People commonly regard themselves as N
-;; years old until the day they turn N+1 years old.  The decimals
-;; remind you that this is false comfort: many N-year-olds are already
-;; closer to being N+1 years old.
+;; years old until the day they turn N+1 years old.  The decimals remind
+;; you that this is a false comfort: many N-year-olds are already closer
+;; to being N+1 years old.
 
-;; Set memento-mori-birth-date, enable memento-mori-mode and reflect.
+;;; Usage:
+
+;; Add something like the following adjusting the date accordingly to
+;; your init.el.
+
+;; (require 'memento-mori)
+;; (setq memento-mori-birth-date "1970-01-01")
+;; (memento-mori-mode)
+
+;; Or using use-package:
+;; (use-package memento-mori
+;;   :ensure t
+;;   :init (setq memento-mori-birth-date "1970-01-01")
+;;   :config (memento-mori-mode))
 
 ;;; Code:
 
 ;;;###autoload
-(defgroup memento-mori
-  '((memento-mori-birth-date custom-variable))
-  "Reminder of mortality."
+(defgroup memento-mori nil
+  "Reminder of our mortality."
   :group 'help)
 
 ;;;###autoload
 (defcustom memento-mori-birth-date ""
-  "*Your birth date in YYYY-MM-DD format."
+  "Your birth date in YYYY-MM-DD format."
   :type 'string
   :group 'memento-mori)
 
 (defvar memento-mori-age-string ""
-  "Your age shown in the mode line when Memento-Mori mode is on.")
+  "Your age shown in the mode line when `memento-mori-mode' is enabled.")
 
 (defun memento-mori--assert-birth-date ()
   "Ensure that `memento-mori-birth-date' has been set."
@@ -48,7 +62,6 @@
 
 (defun memento-mori-birth-time ()
   "Return your birth time in `encode-time' format.
-
 The birth time is parsed from `memento-mori-birth-date' using
 `parse-time-string'.  An error is signaled if it is not valid."
   (memento-mori--assert-birth-date)
@@ -65,7 +78,6 @@ The birth time is parsed from `memento-mori-birth-date' using
 
 (defun memento-mori-age ()
   "Return your age in years.
-
 This is a floating point number based on `memento-mori-birth-date'."
   (/ (truncate (float-time
                 (time-subtract (current-time) (memento-mori-birth-time))))
@@ -79,10 +91,9 @@ This is a floating point number based on `memento-mori-birth-date'."
 ;;;###autoload
 (define-minor-mode memento-mori-mode
   "Toggle display of your age in the mode line.
-
-With a prefix argument ARG, enable Memento-Mori mode if ARG is
-positive, and disable it otherwise.  If called from Lisp, enable
-it if ARG is omitted or nil."
+With a prefix argument ARG, enable if ARG is positive, and
+disable it otherwise.  If called from Lisp, enable it if ARG is
+omitted or nil."
   :global t
   :group 'memento-mori
   (cancel-function-timers #'memento-mori-update)
