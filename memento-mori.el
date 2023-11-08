@@ -53,7 +53,7 @@
 (defvar memento-mori-age-string ""
   "Your age shown in the mode line when `memento-mori-mode' is enabled.")
 
-(defun memento-mori-birth-time ()
+(defun memento-mori--birth-time ()
   "Return your birth time in `encode-time' format.
 The birth time is parsed from `memento-mori-birth-date' using
 `parse-time-string'. An error is signaled if it is not valid."
@@ -67,17 +67,17 @@ The birth time is parsed from `memento-mori-birth-date' using
       (error "Cannot parse birth date %S" memento-mori-birth-date))
     (encode-time 0 0 0 day month year)))
 
-(defun memento-mori-age ()
+(defun memento-mori--age ()
   "Return your age in years.
 This is a floating point number based on `memento-mori-birth-date'."
   (/ (truncate (float-time
-                (time-subtract (current-time) (memento-mori-birth-time))))
+                (time-subtract (current-time) (memento-mori--birth-time))))
      (* 60 60 24 365.2425)))
 
-(defun memento-mori-update ()
+(defun memento-mori--update ()
   "Update `memento-mori-age-string' based on the current time."
   (setq memento-mori-age-string
-        (format " %.2f years old" (memento-mori-age))))
+        (format " %.2f years old" (memento-mori--age))))
 
 ;;;###autoload
 (define-minor-mode memento-mori-mode
@@ -87,10 +87,10 @@ disable it otherwise.  If called from Lisp, enable it if ARG is
 omitted or nil."
   :global t
   :group 'memento-mori
-  (cancel-function-timers #'memento-mori-update)
+  (cancel-function-timers #'memento-mori--update)
   (when memento-mori-mode
-    (run-at-time "00:00" (* 60 60 24) #'memento-mori-update)
-    (memento-mori-update))
+    (run-at-time "00:00" (* 60 60 24) #'memento-mori--update)
+    (memento-mori--update))
   (setq global-mode-string
         (append (delete 'memento-mori-age-string
                         (or global-mode-string '("")))
