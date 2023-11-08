@@ -40,12 +40,10 @@
 
 ;;; Code:
 
-;;;###autoload
 (defgroup memento-mori nil
   "Reminder of our mortality."
   :group 'help)
 
-;;;###autoload
 (defcustom memento-mori-birth-date ""
   "Your birth date in YYYY-MM-DD format."
   :type 'string
