@@ -3,7 +3,7 @@
 ;; Author: Lassi Kortela <lassi@lassi.io>
 ;; URL: https://github.com/lassik/emacs-memento-mori
 ;; Version: 0.1.0
-;; Package-Requires: ((emacs "24") (cl-lib "0.5"))
+;; Package-Requires: ((emacs "24.3"))
 ;; Keywords: help
 ;;
 ;; This file is not part of GNU Emacs.
@@ -22,6 +22,8 @@
 ;; Set memento-mori-birth-date, enable memento-mori-mode and reflect.
 ;;
 ;;; Code:
+
+(require 'cl-lib)
 
 ;;;###autoload
 (defgroup memento-mori
