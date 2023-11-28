@@ -51,7 +51,7 @@
 The birth time is parsed from `memento-mori-birth-date' using
 `parse-time-string'. An error is signaled if it is not valid."
   (memento-mori--assert-birth-date)
-  (cl-destructuring-bind (_ _ _ day month year _ _ _)
+  (cl-destructuring-bind (_ _ _ day month year &rest _)
       (parse-time-string (if (stringp memento-mori-birth-date)
                              memento-mori-birth-date ""))
     (unless (and day month year)
