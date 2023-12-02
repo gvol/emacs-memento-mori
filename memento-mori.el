@@ -23,8 +23,6 @@
 ;;
 ;;; Code:
 
-(require 'cl-lib)
-
 ;;;###autoload
 (defgroup memento-mori
   '((memento-mori-birth-date custom-variable))
@@ -51,9 +49,13 @@
 The birth time is parsed from `memento-mori-birth-date' using
 `parse-time-string'. An error is signaled if it is not valid."
   (memento-mori--assert-birth-date)
-  (cl-destructuring-bind (_ _ _ day month year &rest _)
-      (parse-time-string (if (stringp memento-mori-birth-date)
-                             memento-mori-birth-date ""))
+  (let* ((decoded (parse-time-string
+                   (if (stringp memento-mori-birth-date)
+                       memento-mori-birth-date
+                     "")))
+         (day (elt decoded 3))
+         (month (elt decoded 4))
+         (year (elt decoded 5)))
     (unless (and day month year)
       (error "Cannot parse birth date %S" memento-mori-birth-date))
     (encode-time 0 0 0 day month year)))
