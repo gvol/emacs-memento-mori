@@ -1,26 +1,26 @@
 ;;; memento-mori.el --- Reminder of mortality
-;;
+
 ;; Author: Lassi Kortela <lassi@lassi.io>
 ;; URL: https://github.com/lassik/emacs-memento-mori
 ;; Version: 0.1.0
 ;; Package-Requires: ((emacs "24.3"))
 ;; Keywords: help
-;;
+
 ;; This file is not part of GNU Emacs.
-;;
+
 ;;; Commentary:
-;;
+
 ;; Shows your age in the global mode line as a reminder to squander
 ;; less of your brief time on this earth.
-;;
+
 ;; Your age is shown with two decimal places so you can witness it
 ;; increasing every 3-4 days. People commonly regard themselves as N
 ;; years old until the day they turn N+1 years old. The decimals
 ;; remind you that this is false comfort: many N-year-olds are already
 ;; closer to being N+1 years old.
-;;
+
 ;; Set memento-mori-birth-date, enable memento-mori-mode and reflect.
-;;
+
 ;;; Code:
 
 ;;;###autoload
