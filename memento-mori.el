@@ -14,8 +14,8 @@
 ;; less of your brief time on this earth.
 
 ;; Your age is shown with two decimal places so you can witness it
-;; increasing every 3-4 days. People commonly regard themselves as N
-;; years old until the day they turn N+1 years old. The decimals
+;; increasing every 3-4 days.  People commonly regard themselves as N
+;; years old until the day they turn N+1 years old.  The decimals
 ;; remind you that this is false comfort: many N-year-olds are already
 ;; closer to being N+1 years old.
 
@@ -39,15 +39,16 @@
   "Your age shown in the mode line when Memento-Mori mode is on.")
 
 (defun memento-mori--assert-birth-date ()
+  "Ensure that `memento-mori-birth-date' has been set."
   (when (or (null memento-mori-birth-date)
             (equal "" memento-mori-birth-date))
-    (error "Birth date not set. Try M-x customize-group memento-mori")))
+    (error "Birth date not set.  Try M-x customize-group memento-mori")))
 
 (defun memento-mori-birth-time ()
   "Return your birth time in `encode-time' format.
 
 The birth time is parsed from `memento-mori-birth-date' using
-`parse-time-string'. An error is signaled if it is not valid."
+`parse-time-string'.  An error is signaled if it is not valid."
   (memento-mori--assert-birth-date)
   (let* ((decoded (parse-time-string
                    (if (stringp memento-mori-birth-date)
