@@ -1,4 +1,4 @@
-;;; memento-mori.el --- Reminder of mortality
+;;; memento-mori.el --- Reminder of mortality -*- lexical-binding: t -*-
 
 ;; Author: Lassi Kortela <lassi@lassi.io>
 ;; URL: https://github.com/lassik/emacs-memento-mori
