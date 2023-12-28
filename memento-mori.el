@@ -2,10 +2,11 @@
 
 ;; Author: Lassi Kortela <lassi@lassi.io>
 ;; Maintainer: Ivan Andrus <darthandrus@gmail.com>
-;; URL: https://github.com/lassik/emacs-memento-mori
+;; URL: https://github.com/gvol/emacs-memento-mori
 ;; Version: 0.1.0
 ;; Package-Requires: ((emacs "24.3"))
 ;; Keywords: help
+;; SPDX-License-Identifier: ISC
 
 ;; This file is not part of GNU Emacs.
 
