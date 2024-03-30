@@ -5,7 +5,7 @@
 ;; Author: Lassi Kortela <lassi@lassi.io>
 ;; Maintainer: Ivan Andrus <darthandrus@gmail.com>
 ;; URL: https://github.com/gvol/emacs-memento-mori
-;; Version: 0.1.0
+;; Version: 0.2.0
 ;; Package-Requires: ((emacs "24.3"))
 ;; Keywords: help
 ;; SPDX-License-Identifier: ISC
@@ -49,8 +49,11 @@
   :type 'string
   :group 'memento-mori)
 
-(defvar memento-mori-age-string ""
-  "Your age shown in the mode line when `memento-mori-mode' is enabled.")
+(defvar memento-mori-string ""
+  "The string shown in the mode line when `memento-mori-mode' is enabled.")
+
+(define-obsolete-variable-alias 'memento-mori-age-string
+  'memento-mori-string "0.2.0")
 
 (defun memento-mori--assert-birth-date ()
   "Ensure that `memento-mori-birth-date' has been set."
@@ -82,8 +85,8 @@ This is a floating point number based on `memento-mori-birth-date'."
      (* 60 60 24 365.2425)))
 
 (defun memento-mori--update ()
-  "Update `memento-mori-age-string' based on the current time."
-  (setq memento-mori-age-string
+  "Update `memento-mori-string' based on the current time."
+  (setq memento-mori-string
         (format " %.2f years old" (memento-mori--age))))
 
 ;;;###autoload
@@ -99,9 +102,9 @@ omitted or nil."
     (memento-mori--update)
     (run-at-time "00:00" (* 60 60 24) #'memento-mori--update))
   (setq global-mode-string
-        (append (delete 'memento-mori-age-string
+        (append (delete 'memento-mori-string
                         (or global-mode-string '("")))
-                (when memento-mori-mode '(memento-mori-age-string)))))
+                (when memento-mori-mode '(memento-mori-string)))))
 
 (provide 'memento-mori)
 
