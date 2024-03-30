@@ -61,27 +61,29 @@
             (equal "" memento-mori-birth-date))
     (error "Birth date not set.  Try M-x customize-group memento-mori")))
 
-(defun memento-mori--birth-time ()
+(defun memento-mori--parse-time (value)
   "Return your birth time in `encode-time' format.
 The birth time is parsed from `memento-mori-birth-date' using
 `parse-time-string'.  An error is signaled if it is not valid."
-  (memento-mori--assert-birth-date)
   (let* ((decoded (parse-time-string
-                   (if (stringp memento-mori-birth-date)
-                       memento-mori-birth-date
+                   (if (stringp value)
+                       value
                      "")))
          (day (elt decoded 3))
          (month (elt decoded 4))
          (year (elt decoded 5)))
     (unless (and day month year)
-      (error "Cannot parse birth date %S" memento-mori-birth-date))
+      (error "Cannot parse birth date %S" value))
     (encode-time 0 0 0 day month year)))
 
 (defun memento-mori--age ()
   "Return your age in years.
 This is a floating point number based on `memento-mori-birth-date'."
+  (memento-mori--assert-birth-date)
   (/ (truncate (float-time
-                (time-subtract (current-time) (memento-mori--birth-time))))
+                (time-subtract (current-time)
+                               (memento-mori--parse-time
+                                memento-mori-birth-date))))
      (* 60 60 24 365.2425)))
 
 (defun memento-mori--update ()
