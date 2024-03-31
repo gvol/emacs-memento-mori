@@ -73,7 +73,7 @@ The birth time is parsed from `memento-mori-birth-date' using
          (month (elt decoded 4))
          (year (elt decoded 5)))
     (unless (and day month year)
-      (error "Cannot parse birth date %S" value))
+      (error "Cannot parse date %S" value))
     (encode-time 0 0 0 day month year)))
 
 (defun memento-mori--age ()
