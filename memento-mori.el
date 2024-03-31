@@ -49,11 +49,12 @@
   :type 'string
   :group 'memento-mori)
 
-(defvar memento-mori-string ""
-  "The string shown in the mode line when `memento-mori-mode' is enabled.")
 
 (define-obsolete-variable-alias 'memento-mori-age-string
   'memento-mori-string "0.2.0")
+
+(defvar memento-mori-string ""
+  "The string shown in the mode line when `memento-mori-mode' is enabled.")
 
 (defun memento-mori--assert-birth-date ()
   "Ensure that `memento-mori-birth-date' has been set."
