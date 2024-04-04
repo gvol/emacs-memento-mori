@@ -187,6 +187,8 @@ practice for inclusion in `global-mode-string'.")
   "Return your birth time in `encode-time' format.
 The birth time is parsed from `memento-mori-birth-date' using
 `parse-time-string'.  An error is signaled if it is not valid."
+  (when (symbolp value)
+    (setq value (symbol-value value)))
   (let* ((decoded (parse-time-string
                    (if (stringp value)
                        value
