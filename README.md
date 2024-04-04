@@ -10,7 +10,8 @@ time left, and motivation to live to the fullest.
 Death, of course, is not the only ending, and so this package allows you to
 choose what to be reminded of (including time _since_ some event such as your
 birth).  Every day it will choose a new memento randomly and put it into
-`global-mode-string' which is usually displayed in the mode line.
+`global-mode-string' which is usually displayed in the mode line.  There is also
+an option to show it in the frame title instead of the global-mode-string.
 
 # Installation
 
