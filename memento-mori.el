@@ -50,6 +50,14 @@
   "Reminder of our mortality."
   :group 'help)
 
+(defcustom memento-mori-display-in-modeline t
+  "If non-nil, `memento-mode' will add mementos to the modeline.
+Really, it adds it to the `global-mode-string', which usually
+appears in the modeline, however, if you have customized your
+modeline it may not appear."
+  :group 'memento-mori
+  :type 'boolean)
+
 (defcustom memento-mori-birth-date ""
   "Your birth date in YYYY-MM-DD format.
 This is deprecated in favor of the more flexible `memento-mori-mementos'.
@@ -140,6 +148,21 @@ number of years with two decimal points of precision."
 
 (defvar memento-mori-string ""
   "The string shown in the mode line when `memento-mori-mode' is enabled.")
+
+(defvar memento-mori--modeline-construct
+  `(memento-mori-mode
+    ((:propertize
+      ("" memento-mori-string)
+      mouse-face mode-line-highlight
+      help-echo "mouse-1: Refresh memento\nmouse-2/3: Turn off memento-mori"
+      local-map
+      ,(make-mode-line-mouse-map
+        'mouse-1 #'memento-mori--update))
+     " "))
+  "A mode-line construct to be added to `global-mode-string'.
+See `mode-line-format' for information about the format.  It should
+append a space to the `memento-mori-string' which is considered best
+practice for inclusion in `global-mode-string'.")
 
 (defun memento-mori--assert-birth-date ()
   "Ensure that `memento-mori-birth-date' has been set."
@@ -249,6 +272,21 @@ Try M-x customize-group memento-mori RET"))
               (format " %.2f years old" (memento-mori--age))
             (memento-mori--format-memento (memento--random-memento))))))
 
+(defun memento-mori--add-to-modeline ()
+  "Adds constructs to modeline and frame-title to display mementos.
+Where it adds it is controlled by `memento-mori-display-in-modeline' and
+`memento-mori-display-in-frame-title'.
+
+You might consider adding it (manually) to your org mode agenda, splash
+screen, etc."
+  (if memento-mori-display-in-modeline
+      ;; This assumes that global-mode-string is a list, even though technically
+      ;; it could be a string
+      (add-to-list 'global-mode-string memento-mori--modeline-construct)
+    (setq global-mode-string
+          (and global-mode-string
+               (delete memento-mori--modeline-construct global-mode-string)))))
+
 ;;;###autoload
 (define-minor-mode memento-mori-mode
   "Toggle display of your age in the mode line.
@@ -260,11 +298,8 @@ omitted or nil."
   (cancel-function-timers #'memento-mori--update)
   (when memento-mori-mode
     (memento-mori--update)
-    (run-at-time "00:00" (* 60 60 24) #'memento-mori--update))
-  (setq global-mode-string
-        (append (delete 'memento-mori-string
-                        (or global-mode-string '("")))
-                (when memento-mori-mode '(memento-mori-string)))))
+    (run-at-time "00:00" (* 60 60 24) #'memento-mori--update)
+    (memento-mori--add-to-modeline)))
 
 (provide 'memento-mori)
 
