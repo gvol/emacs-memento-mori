@@ -58,6 +58,11 @@ modeline it may not appear."
   :group 'memento-mori
   :type 'boolean)
 
+(defcustom memento-mori-display-in-frame-title nil
+  "If non-nil, `memento-mode' will add mementos to the frame title."
+  :group 'memento-mori
+  :type 'boolean)
+
 (defcustom memento-mori-birth-date ""
   "Your birth date in YYYY-MM-DD format.
 This is deprecated in favor of the more flexible `memento-mori-mementos'.
@@ -162,6 +167,14 @@ number of years with two decimal points of precision."
   "A mode-line construct to be added to `global-mode-string'.
 See `mode-line-format' for information about the format.  It should
 append a space to the `memento-mori-string' which is considered best
+practice for inclusion in `global-mode-string'.")
+
+(defvar memento-mori--frame-title-construct
+  `(memento-mori-mode
+    (" -- " memento-mori-string))
+  "A mode-line construct to be added to `global-mode-string'.
+See `mode-line-format' for information about the format.  It should
+append a space to the `memento-mori-string'.  This is considered best
 practice for inclusion in `global-mode-string'.")
 
 (defun memento-mori--assert-birth-date ()
@@ -285,7 +298,16 @@ screen, etc."
       (add-to-list 'global-mode-string memento-mori--modeline-construct)
     (setq global-mode-string
           (and global-mode-string
-               (delete memento-mori--modeline-construct global-mode-string)))))
+               (delete memento-mori--modeline-construct global-mode-string))))
+  (if memento-mori-display-in-frame-title
+      (if (stringp frame-title-format)
+          (setq frame-title-format
+                (list frame-title-format memento-mori--frame-title-construct))
+        (add-to-list 'frame-title-format
+                     'memento-mori--frame-title-construct))
+    (when (listp frame-title-format)
+      (setq frame-title-format
+            (delete memento-mori--frame-title-construct frame-title-format)))))
 
 ;;;###autoload
 (define-minor-mode memento-mori-mode
