@@ -79,8 +79,8 @@ Ultimately, it will be displayed as the initial documentation in
 This is deprecated in favor of the more flexible `memento-mori-mementos'.
 To use `memento-mori-mementos' customize it, or erase customization of
 `memento-mori-birth-date'."
-  :type 'string
-  :group 'memento-mori)
+  :group 'memento-mori
+  :type 'string)
 (make-obsolete-variable 'memento-mori-birth-date
                         "memento-mori-mementos" "0.2.1")
 
