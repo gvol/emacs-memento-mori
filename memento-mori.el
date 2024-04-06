@@ -240,7 +240,9 @@ will replace it and the result will be saved in the variable
   :type '(repeat string))
 
 (defvar memento-mori-string ""
-  "The string shown in the mode line when `memento-mori-mode' is enabled.")
+  "The string shown in the mode line when `memento-mori-mode' is enabled.
+This is not meant to be changed by the user, but can be used in places
+such as org-mode agendas to display the current momento.")
 
 (defvar memento-mori--modeline-construct
   `(memento-mori-mode
