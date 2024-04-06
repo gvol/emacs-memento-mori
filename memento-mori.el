@@ -5,7 +5,7 @@
 ;; Author: Lassi Kortela <lassi@lassi.io>
 ;; Maintainer: Ivan Andrus <darthandrus@gmail.com>
 ;; URL: https://github.com/gvol/emacs-memento-mori
-;; Version: 0.3.0
+;; Version: 0.3.1
 ;; Package-Requires: ((emacs "24.3"))
 ;; Keywords: help
 ;; SPDX-License-Identifier: ISC
