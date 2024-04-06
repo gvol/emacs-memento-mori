@@ -51,15 +51,15 @@
   :group 'help)
 
 (defcustom memento-mori-display-in-modeline t
-  "If non-nil, `memento-mode' will add mementos to the modeline.
+  "If non-nil, `memento-mori-mode' will add mementos to the mode line.
 Really, it adds it to the `global-mode-string', which usually
-appears in the modeline, however, if you have customized your
-modeline it may not appear."
+appears in the mode line, however, if you have customized your
+mode line it may not appear."
   :group 'memento-mori
   :type 'boolean)
 
 (defcustom memento-mori-display-in-frame-title nil
-  "If non-nil, `memento-mode' will add mementos to the frame title."
+  "If non-nil, `memento-mori-mode' will add mementos to the frame title."
   :group 'memento-mori
   :type 'boolean)
 
@@ -102,7 +102,7 @@ To use `memento-mori-mementos' customize it, or erase customization of
     ("%f lunar cycles since man set foot on the moon"
      :since "1969-07-20 20:17:40"
      :formula (lambda (days) (/ days 29.5))))
-  "List of mementos, namely things that will remind you of your short time.
+  "List of mementos, namely things that will remind you of your mortality.
 
 Each memento is a list, the first element of which is a format
 string.  The rest is a plist, namely a list of alternating
@@ -240,21 +240,23 @@ will replace it and the result will be saved in the variable
   :type '(repeat string))
 
 (defvar memento-mori-string ""
-  "The string shown in the mode line when `memento-mori-mode' is enabled.
-This is not meant to be changed by the user, but can be used in places
-such as org-mode agendas to display the current momento.")
+  "The memento mori memento.
+The string shown in the mode line and/or frame title when
+`memento-mori-mode' is enabled.  This is not meant to be changed
+by the user, but can be used in other places such as org-mode
+agendas to display the current momento.")
 
 (defvar memento-mori--modeline-construct
   `(memento-mori-mode
     ((:propertize
       ("" memento-mori-string)
       mouse-face mode-line-highlight
-      help-echo "mouse-1: Refresh memento\nmouse-2/3: Turn off memento-mori"
+      help-echo "mouse-1: Refresh memento\nmouse-2/3: Turn off memento-mori-mode"
       local-map
       ,(make-mode-line-mouse-map
         'mouse-1 #'memento-mori--update))
      " "))
-  "A mode-line construct to be added to `global-mode-string'.
+  "A mode line construct to be added to `global-mode-string'.
 See `mode-line-format' for information about the format.  It should
 append a space to the `memento-mori-string' which is considered best
 practice for inclusion in `global-mode-string'.")
@@ -262,10 +264,9 @@ practice for inclusion in `global-mode-string'.")
 (defvar memento-mori--frame-title-construct
   `(memento-mori-mode
     (" -- " memento-mori-string))
-  "A mode-line construct to be added to `global-mode-string'.
-See `mode-line-format' for information about the format.  It should
-append a space to the `memento-mori-string'.  This is considered best
-practice for inclusion in `global-mode-string'.")
+  "A frame title construct to be added to `frame-title-format'.
+See `frame-title-format' and `mode-line-format' for information
+about the format.")
 
 (defun memento-mori--assert-birth-date ()
   "Ensure that `memento-mori-birth-date' has been set."
@@ -377,7 +378,7 @@ This is a floating point number based on `memento-mori-birth-date'."
 Try M-x customize-group memento-mori RET"))
     (setq memento-mori-string
           (if (and has-set-old (not has-set-new))
-              ;; Fall back to the old style so that we don't break anyone
+              ;; Fall back to the old style for backwards compatibility
               (format " %.2f years old" (memento-mori--age))
             (memento-mori--format-memento (memento-mori--random-memento)))))
   (when (and memento-mori-initial-scratch-message
@@ -389,12 +390,12 @@ Try M-x customize-group memento-mori RET"))
                        'ignore))))
 
 (defun memento-mori--add-mementos ()
-  "Adds constructs to modeline and frame-title to display mementos.
+  "Adds constructs to mode line and/or frame title to display `memento-mori-mementos'.
 Where it adds it is controlled by `memento-mori-display-in-modeline' and
-`memento-mori-display-in-frame-title'.
+`memento-mori-display-in-frame-title' respectively.
 
-You might consider adding it (manually) to your org mode agenda, splash
-screen, etc."
+Alternatively, you might consider adding it (manually) to your
+org mode agenda, splash screen, etc."
   (if memento-mori-display-in-modeline
       ;; This assumes that global-mode-string is a list, even though technically
       ;; it could be a string
@@ -414,7 +415,7 @@ screen, etc."
 
 ;;;###autoload
 (define-minor-mode memento-mori-mode
-  "Toggle display of your age in the mode line.
+  "Toggle display of a memento mori memento in the mode line and/or frame title.
 With a prefix argument ARG, enable if ARG is positive, and
 disable it otherwise.  If called from Lisp, enable it if ARG is
 omitted or nil."
