@@ -63,6 +63,17 @@ modeline it may not appear."
   :group 'memento-mori
   :type 'boolean)
 
+(defcustom memento-mori-initial-scratch-message nil
+  "If non-nil, overwrite the value of `initial-scratch-message' with this.
+If this contains a %q it will be replaced with a random quote from
+ `memento-mori-quotes'.  Similarly, a %m will be replaced with the
+ current memento.
+
+Ultimately, it will be displayed as the initial documentation in
+*scratch* buffer at startup."
+  :type '(choice (text :tag "Scratch message format")
+		         (const :tag "none" nil)))
+
 (defcustom memento-mori-birth-date ""
   "Your birth date in YYYY-MM-DD format.
 This is deprecated in favor of the more flexible `memento-mori-mementos'.
@@ -151,6 +162,83 @@ number of years with two decimal points of precision."
 (define-obsolete-variable-alias 'memento-mori-age-string
   'memento-mori-string "0.2.0")
 
+(defcustom memento-mori-quotes
+  '("A culture that denies death inevitably becomes shallow and superficial,\nconcerned only with the external form of things. When death is denied, life loses its depth.\n\t–Eckhart Tolle"
+    "About death: Whether it is a dispersion, or a resolution into atoms,\nor annihilation, it is either extinction or change.\n\t—Marcus Aurelius"
+    "Accept death in a cheerful spirit, as nothing but the dissolution of the\nelements from which each living thing is composed. If it doesn’t hurt the individual elements to change continually into one another, why are people afraid of all of them changing and separating? It’s a natural thing. And nothing natural is evil.\n\t—Marcus Aurelius"
+    "At the end of my life, with just one breath left, if you come, I’ll sit up and sing.\n\t–Rumi"
+    "Before I became old I tried to live well; now that I am old, I shall try to die well;\nbut dying well means dying gladly.\n\t—Lucius Annaeus Seneca"
+    "Before death takes away what you are given, give away what there is to give.\n\t–Rumi"
+    "Choose to die well while you can;\nwait too long, and it might become impossible to do so.\n\t—Gaius Musonius Rufus"
+    "Death is beautiful when seen to be a law, and not an accident.\nIt is as common as life.\n\t–Henry David Thoreau"
+    "Death is not an evil. What is it then?\nThe one law mankind has that is free of all discrimination.\n\t—Lucius Annaeus Seneca"
+    "Death is nothing, but to live defeated and inglorious is to die daily.\n\t–Napoleon"
+    "Do not fear death so much but rather the inadequate life.\n\t–Bertolt Brecht"
+    "Don’t behave as if you are destined to live forever. Death hangs over you.\nWhile you live, while it is in your power, be good. Now.\n\t—Marcus Aurelius"
+    "Dying is a wild night and a new road.\n\t–Emily Dickinson"
+    "Even death is not to be feared by one who has lived wisely.\n\t–Buddha"
+    "Everyone is so afraid of death, but the real sufis just laugh:\nnothing tyrannizes their hearts.\nWhat strikes the oyster shell does not damage the pearl.\n\t–Rumi"
+    "Excess of grief for the dead is madness; for it is an injury to the living,\nand the dead know it not.\n\t–Xenophon"
+    "Given that all must die, it is better to die with distinction than to live long.\n\t—Gaius Musonius Rufus"
+    "He who doesn’t fear death dies only once.\n\t–Giovanni Falcone"
+    "Healthy children will not fear life if their elders have integrity enough\nnot to fear death.\n\t–Erik Erikson"
+    "How much more suffering is caused by the thought of death than by death itself.\n\t―Will Durant"
+    "I am not afraid of death, I just don’t want to be there when it happens.\n\t–Woody Allen"
+    "I cannot escape death, but at least I can escape the fear of it.\n\t—Epictetus"
+    "I have no choice of living or dying, you see, sir–\nbut I do have a choice of how I do it.\n\t–John Steinbeck"
+    "I learned that every mortal will taste death. But only some will taste life.\n\t–Rumi"
+    "I shall not die of a cold. I shall die of having lived.\n\t–Willa Cather"
+    "I went to the woods because I wished to live deliberately,\nto front only the essential facts of life, and see if I could not learn\nwhat it had to teach, and not, when I came to die, discover that I had not lived.\n\t–Henry David Thoreau"
+    "I've told my children that when I die, to release balloons in the sky\nto celebrate that I graduated. For me, death is a graduation.\n\t–Elizabeth Kubler Ross"
+    "If a man has not discovered something that he will die for, he isn’t fit to live.\n\t–Martin Luther King, Jr."
+    "If you don't know how to die, don't worry; Nature will tell you what to do\non the spot, fully and adequately. She will do this job perfectly for you;\ndon't bother your head about it.\n\t–Michel de Montaigne"
+    "If you realize that all things change, there is nothing you will try to hold on to.\nIf you are not afraid of dying, there is nothing you cannot achieve.\n\t–Lao Tzu"
+    "Intellectual growth should commence at birth and cease only at death.\n\t–Albert Einstein"
+    "It is necessary to be strong in the face of death, because death is intrinsic to life.\nIt is for this reason that I tell my students: aim to be the person at your\nfather’s funeral that everyone, in their grief and misery, can rely on.\nThere’s a worthy and noble ambition: strength in the face of adversity.\n\t–Jordan Peterson"
+    "It is not death that a man should fear, but rather he should fear never beginning to live.\n\t—Marcus Aurelius"
+    "It is not length of life, but depth of life.\n\t–Ralph Waldo Emerson"
+    "It is not the end of the physical body that should worry us.\nRather, our concern must be to live while we're alive - to release our\ninner selves from the spiritual death that comes with living behind a facade\ndesigned to conform to external definitions of who and what we are.\n\t–Elisabeth Kubler-Ross"
+    "It seems to me that if you or I must choose between two courses of thought\nor action, we should remember our dying and try so to live that our death brings\nno pleasure on the world.\n\t–John Steinbeck"
+    "It’s better to conquer grief than to deceive it.\n\t—Lucius Annaeus Seneca"
+    "Let death and exile, and all other things which appear terrible be daily before\nyour eyes, but chiefly death, and you will never entertain any abject thought,\nnor too eagerly covet anything.\n\t—Epictetus"
+    "Let each thing you would do, say, or intend, be like that of a dying person.\n\t—Marcus Aurelius"
+    "No evil is great which is the last evil of all. Death arrives; it would be a\nthing to dread, if it could remain with you. But death must either not come at all,\nor else must come and pass away.\n\t—Lucius Annaeus Seneca"
+    "No evil is honorable: but death is honorable; therefore death is not evil.\n\t—Zeno of Citium"
+    "Nothing real can die.\nWhen you see a dead body, you realize that this is no longer who you knew.\nThis is only a shell. So nothing real can be threatened.\nThere is no such thing as death.\n\t–Eckhart Tolle"
+    "Only those are fit to live who do not fear to die; and none are fit to die\nwho have shrunk from the joy of life and the duty of life. Both life and death\nare parts of the same Great Adventure.\n\t—Theodore Roosevelt"
+    "Ordinary people seem not to realize that those who really apply themselves in\nthe right way to philosophy are directly and of their own accord preparing\nthemselves for dying and death.\n\t–Socrates"
+    "Our death is our wedding with eternity.\n\t–Rumi"
+    "Our fear of death is like our fear that summer will be short, but when we have\nhad our swing of pleasure, our fill of fruit, and our swelter of heat,\nwe say we have had our day.\n\t–Ralph Waldo Emerson"
+    "Remembering that I'll be dead soon is the most important tool I've ever\nencountered to help me make the big choices in life. Because almost everything -\nall external expectations, all pride, all fear of embarrassment or failure -\nthese things just fall away in the face of death, leaving only what is truly important.\n\t–Steve Jobs"
+    "Some people die at 25 and aren’t buried until 75.\n\t–Benjamin Franklin"
+    "Some things are rushing into existence, others out of it.\nSome of what now exists is already gone.\nChange and flux constantly remake the world, just as the incessant progression\nof time remakes eternity. We find ourselves in a river.\nWhich of the things around us should we value when none of them can offer a firm foothold?\n\t—Marcus Aurelius"
+    "That man lives badly who does not know how to die well.\n\t—Lucius Annaeus Seneca"
+    "The act of dying is one of the acts of life.\n\t–Marcus Aurelius"
+    "The art of living well and the art of dying well are one.\n\t–Epicurius"
+    "The day which we fear as our last is but the birthday of eternity.\n\t–Lucius Annaeus Seneca"
+    "The fear of death follows from the fear of life. A man who lives fully is\nprepared to die at any time.\n\t–Mark Twain"
+    "The fear of death is the most unjustified of all fears, for there’s no risk\nof accident for someone who’s dead.\n\t–Albert Einstein"
+    "The world is a playground, and death is the night.\n\t–Rumi"
+    "There’s something about death that is comforting. The thought that you could\ndie tomorrow frees you to appreciate your life now.\n\t–Angelina Jolie"
+    "Think of yourself as dead. You have lived your life. Now, take what’s left and\nlive it properly. What doesn’t transmit light creates its own darkness.\n\t—Marcus Aurelius"
+    "To be idle is a short road to death and to be diligent is a way of life; foolish\npeople are idle, wise people are diligent.\n\t–Buddha"
+    "Too busy with the crowded hour to fear to live or die.\n\t–Ralph Waldo Emerson"
+    "What is death? A scary mask. Take it off – see, it doesn’t bite.\nEventually, body and soul will have to separate, just as they existed separately\nbefore we were born. So why be upset if it happens now? If it isn’t now, it’s later.\n\t—Epictetus"
+    "What upsets people is not things themselves but their judgments about the things.\nFor example, death is nothing dreadful (or else it would have appeared dreadful\nto Socrates), but instead the judgment about death that it is dreadful—that is what\nis dreadful. So, when we are thwarted or upset or distressed, let us never blame\nsomeone else but rather ourselves, that is, our own judgments.\nAn uneducated person accuses others when he is doing badly; a partly educated\nperson accuses himself, an educated person accuses neither someone else nor himself.\n\t—Epictetus"
+    "When a man comes to die,\nNo matter what his talents and influences and genius,\nIf he dies unloved his life must be a failure to him\nAnd his dying a cold horror.\n\t–John Steinbeck"
+    "When the longest- and shortest-lived of us dies, their loss is precisely equal.\nFor the sole thing of which any of us can be deprived is the present,\nsince this is all we own, and nobody can lose what is not theirs.\n\t–Marcus Aurelius"
+    "When the only thing left to do is die, then die well.\n\t—Phil Van Treuren"
+    "When your time comes to die, be not like those whose hearts are filled with\nfear of death, so that when their time comes they weep and pray for a little\nmore time to live their lives over again in a different way.\nSing your death song, and die like a hero going home.\n\t–Tecumseh"
+    "You act like mortals in all that you fear, and like immortals in all that you desire.\n\t—Lucius Annaeus Seneca"
+    "You may leave this life at any moment: have this possibility in your mind in\nall that you do or say or think.\n\t—Marcus Aurelius"
+    "Your entire life only happens in this moment. The present moment is life itself.\nYet, people live as if the opposite were true and treat the present moment as a\nstepping stone to the next moment – a means to an end.\n\t–Eckhart Tolle")
+  "A list of quotes to make you think about mortality.
+If `memento-mori-initial-scratch-message' contains %q, a random quote
+will replace it and the result will be saved in the variable
+`initial-scratch-message' for display in *scratch* buffer."
+  :group 'memento-mori
+  :type '(repeat string))
+
 (defvar memento-mori-string ""
   "The string shown in the mode line when `memento-mori-mode' is enabled.")
 
@@ -213,6 +301,10 @@ This is a floating point number based on `memento-mori-birth-date'."
 (defun memento--random-memento ()
   "Randomly choose a memento from `memento-mori-mementos'."
   (nth (random (length memento-mori-mementos)) memento-mori-mementos))
+
+(defun memento-mori--random-quote ()
+  "Randomly choose a quote from `memento-mori-quotes'."
+  (nth (random (length memento-mori-quotes)) memento-mori-quotes))
 
 (defun memento-mori--format-memento (memento)
   "Format MEMENTO based on the current time."
@@ -285,7 +377,14 @@ Try M-x customize-group memento-mori RET"))
           (if (and has-set-old (not has-set-new))
               ;; Fall back to the old style so that we don't break anyone
               (format " %.2f years old" (memento-mori--age))
-            (memento-mori--format-memento (memento--random-memento))))))
+            (memento-mori--format-memento (memento--random-memento)))))
+  (when (and memento-mori-initial-scratch-message
+             (boundp 'initial-scratch-message))
+    (setq initial-scratch-message
+          (format-spec memento-mori-initial-scratch-message
+                       `((?m . ,memento-mori-string)
+                         (?q . ,(memento-mori--random-quote)))
+                       'ignore))))
 
 (defun memento-mori--add-to-modeline ()
   "Adds constructs to modeline and frame-title to display mementos.
