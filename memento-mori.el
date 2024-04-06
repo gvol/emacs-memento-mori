@@ -298,7 +298,7 @@ This is a floating point number based on `memento-mori-birth-date'."
                                 memento-mori-birth-date))))
      (* 60 60 24 365.2425)))
 
-(defun memento--random-memento ()
+(defun memento-mori--random-memento ()
   "Randomly choose a memento from `memento-mori-mementos'."
   (nth (random (length memento-mori-mementos)) memento-mori-mementos))
 
@@ -377,7 +377,7 @@ Try M-x customize-group memento-mori RET"))
           (if (and has-set-old (not has-set-new))
               ;; Fall back to the old style so that we don't break anyone
               (format " %.2f years old" (memento-mori--age))
-            (memento-mori--format-memento (memento--random-memento)))))
+            (memento-mori--format-memento (memento-mori--random-memento)))))
   (when (and memento-mori-initial-scratch-message
              (boundp 'initial-scratch-message))
     (setq initial-scratch-message
