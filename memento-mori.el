@@ -388,7 +388,7 @@ Try M-x customize-group memento-mori RET"))
                          (?q . ,(memento-mori--random-quote)))
                        'ignore))))
 
-(defun memento-mori--add-to-modeline ()
+(defun memento-mori--add-mementos ()
   "Adds constructs to modeline and frame-title to display mementos.
 Where it adds it is controlled by `memento-mori-display-in-modeline' and
 `memento-mori-display-in-frame-title'.
@@ -424,7 +424,7 @@ omitted or nil."
   (when memento-mori-mode
     (memento-mori--update)
     (run-at-time "00:00" (* 60 60 24) #'memento-mori--update)
-    (memento-mori--add-to-modeline)))
+    (memento-mori--add-mementos)))
 
 (provide 'memento-mori)
 
