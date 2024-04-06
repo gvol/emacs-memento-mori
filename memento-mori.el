@@ -82,7 +82,7 @@ To use `memento-mori-mementos' customize it, or erase customization of
   :type 'string
   :group 'memento-mori)
 (make-obsolete-variable 'memento-mori-birth-date
-                        "memento-mori-mementos" "0.2.1")
+                        'memento-mori-mementos "0.2.1")
 
 (defcustom memento-mori-mementos
   '(("%y years since Harrison Bergeron was published"
