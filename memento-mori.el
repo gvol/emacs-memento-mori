@@ -411,12 +411,13 @@ org mode agenda, splash screen, etc."
   (if memento-mori-display-in-frame-title
       (if (stringp frame-title-format)
           (setq frame-title-format
-                (list frame-title-format memento-mori--frame-title-construct))
+                (list frame-title-format 'memento-mori--frame-title-construct))
         (add-to-list 'frame-title-format
-                     'memento-mori--frame-title-construct))
+                     'memento-mori--frame-title-construct
+                     t))
     (when (listp frame-title-format)
       (setq frame-title-format
-            (delete memento-mori--frame-title-construct frame-title-format)))))
+            (delete 'memento-mori--frame-title-construct frame-title-format)))))
 
 ;;;###autoload
 (define-minor-mode memento-mori-mode
