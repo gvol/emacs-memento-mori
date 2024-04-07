@@ -395,7 +395,7 @@ Try M-x customize-group memento-mori RET"))
                        'ignore))))
 
 (defun memento-mori--add-mementos ()
-  "Adds constructs to mode line and/or frame title to display `memento-mori-mementos'.
+  "Adds constructs to mode line and/or frame title to display mementos.
 Where it adds it is controlled by `memento-mori-display-in-modeline' and
 `memento-mori-display-in-frame-title' respectively.
 
