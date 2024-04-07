@@ -261,12 +261,14 @@ by the user, but can be used in other places such as org-mode
 agendas to display the current momento.")
 
 (defun memento-mori--set-value-and-update-display (symbol value)
-  "Function to set display values, so that the display will then be recalculated."
+  "Function to set display values, so that the display will then be recalculated.
+Sets SYMBOL to VALUE, then calls updates `memento-mori--add-mementos'."
   (set-default-toplevel-value symbol value)
   (memento-mori--add-mementos))
 
 (defun memento-mori--set-value-and-update (symbol value)
-  "Function to set memento config, so that a new memento will be chosen."
+  "Function to set memento config, so that a new memento will be chosen.
+Sets SYMBOL to VALUE, then calls updates `memento-mori--update'."
   (set-default-toplevel-value symbol value)
   (memento-mori--update))
 
@@ -401,7 +403,7 @@ This is a floating point number based on `memento-mori-birth-date'."
                               (eval (car (get 'memento-mori-birth-date
                                               'standard-value)))))))
     (when (not has-set-new)
-      (message "You'll get more out of memento-mori-mode if you customize it.
+      (message "You'll get more out of memento-mori mode if you customize it.
 Try M-x customize-group memento-mori RET"))
     (setq memento-mori-string
           (if (and has-set-old (not has-set-new))
@@ -417,7 +419,7 @@ Try M-x customize-group memento-mori RET"))
                        'ignore))))
 
 (defun memento-mori--add-mementos ()
-  "Adds constructs to mode line and/or frame title to display mementos.
+  "Add constructs to mode line and/or frame title to display mementos.
 Where it adds it is controlled by `memento-mori-display-in-modeline' and
 `memento-mori-display-in-frame-title' respectively.
 
