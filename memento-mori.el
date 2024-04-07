@@ -58,12 +58,16 @@ Really, it adds it to the `global-mode-string', which usually
 appears in the mode line, however, if you have customized your
 mode line it may not appear."
   :group 'memento-mori
-  :type 'boolean)
+  :type 'boolean
+  :set #'memento-mori--set-value-and-update-display
+  :initialize #'custom-initialize-default)
 
 (defcustom memento-mori-display-in-frame-title nil
   "If non-nil, `memento-mori-mode' will add mementos to the frame title."
   :group 'memento-mori
-  :type 'boolean)
+  :type 'boolean
+  :set #'memento-mori--set-value-and-update-display
+  :initialize #'custom-initialize-default)
 
 (defcustom memento-mori-initial-scratch-message nil
   "If non-nil, overwrite the value of `initial-scratch-message' with this.
@@ -73,6 +77,7 @@ If this contains a %q it will be replaced with a random quote from
 
 Ultimately, it will be displayed as the initial documentation in
 *scratch* buffer at startup."
+  :group 'memento-mori
   :type '(choice (text :tag "Scratch message format")
 		         (const :tag "none" nil)))
 
@@ -82,7 +87,9 @@ This is deprecated in favor of the more flexible `memento-mori-mementos'.
 To use `memento-mori-mementos' customize it, or erase customization of
 `memento-mori-birth-date'."
   :group 'memento-mori
-  :type 'string)
+  :type 'string
+  :set #'memento-mori--set-value-and-update
+  :initialize #'custom-initialize-default)
 (make-obsolete-variable 'memento-mori-birth-date
                         'memento-mori-mementos "0.2.1")
 
@@ -162,7 +169,9 @@ of precision depending on if it's longer than 10 years or not."
                   (plist :key-type symbol
                          :options ((:until string :tag "Date")
                                    (:since string) (:formula function))
-                         :value-type string))))
+                         :value-type string)))
+  :set #'memento-mori--set-value-and-update
+  :initialize #'custom-initialize-default)
 
 (define-obsolete-variable-alias 'memento-mori-age-string
   'memento-mori-string "0.2.0")
@@ -250,6 +259,16 @@ The string shown in the mode line and/or frame title when
 `memento-mori-mode' is enabled.  This is not meant to be changed
 by the user, but can be used in other places such as org-mode
 agendas to display the current momento.")
+
+(defun memento-mori--set-value-and-update-display (symbol value)
+  "Function to set display values, so that the display will then be recalculated."
+  (set-default-toplevel-value symbol value)
+  (memento-mori--add-mementos))
+
+(defun memento-mori--set-value-and-update (symbol value)
+  "Function to set memento config, so that a new memento will be chosen."
+  (set-default-toplevel-value symbol value)
+  (memento-mori--update))
 
 (defvar memento-mori--modeline-construct
   `(memento-mori-mode
