@@ -13,7 +13,7 @@ birth).  Every day it will choose a new memento randomly and put it into
 `global-mode-string' which is usually displayed in the mode line.  There is also
 an option to show it in the frame title instead of the global-mode-string.
 
-# Installation
+## Installation
 
 Install from [MELPA](https://melpa.org/#/memento-mori).
 
@@ -27,7 +27,7 @@ e.g. If you have something like the following in your emacs config
 ```emacs-lisp
 (require 'memento-mori)
 (setq memento-mori-mementos
-      '(("%.2f years old" :since "1970-01-01")))
+      '(("%.5Y years old" :since "1970-01-01")))
 (memento-mori-mode)
 ```
 
@@ -37,7 +37,7 @@ Or using `use-package`:
 (use-package memento-mori
   :ensure t
   :custom (memento-mori-mementos
-           '(("%.2f years old" :since "1970-01-01")))
+           '(("%.5Y years old" :since "1970-01-01")))
   :config (memento-mori-mode))
 ```
 

@@ -145,12 +145,15 @@ sequences below.  They also support all the flags supported by
 %F  The result of the `:formula' as a float.
 %%  A literal percent sign.
 
-As shown, most sequences have a upper case and a lower case
-version.  The lower case versions are truncated to integers since
-this is a common use case.  The upper case versions return a
-float for full control, but will likely require a width or
-precision specifier in practice, such as \"%.2Y\" to show the
-number of years with two decimal points of precision."
+As shown, most sequences have a upper case and a lower case version.
+The lower case versions are truncated to integers since this is a common
+use case.  The upper case versions return a float for full control, but
+will likely require a width or precision specifier in practice.
+Unfortunately, the width and precision specifiers behave like the
+corresponding ones in format when applied to %s, so they define the
+width in characters, not the number of decimal places.  Therefore,
+\"%.5Y\" will show the number of years with two or three decimal points
+of precision depending on if it's longer than 10 years or not."
   :group 'memento-mori
   :type '(repeat (cons
                   (string :tag "Format string")
