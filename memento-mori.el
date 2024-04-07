@@ -432,12 +432,8 @@ org mode agenda, splash screen, etc."
           (and global-mode-string
                (delete memento-mori--modeline-construct global-mode-string))))
   (if memento-mori-display-in-frame-title
-      (if (stringp frame-title-format)
-          (setq frame-title-format
-                (list frame-title-format 'memento-mori--frame-title-construct))
-        (add-to-list 'frame-title-format
-                     'memento-mori--frame-title-construct
-                     t))
+      (setq frame-title-format
+            (list frame-title-format 'memento-mori--frame-title-construct))
     (when (listp frame-title-format)
       (setq frame-title-format
             (delete 'memento-mori--frame-title-construct frame-title-format)))))
