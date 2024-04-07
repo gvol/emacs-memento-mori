@@ -261,7 +261,7 @@ by the user, but can be used in other places such as `org-mode'
 agendas to display the current momento.")
 
 (defun memento-mori--set-value-and-update-display (symbol value)
-  "Function to set display values, so that the display will then be recalculated.
+  "Function to set display values, so the display will then be recalculated.
 Sets SYMBOL to VALUE, then calls updates `memento-mori--add-mementos'."
   (set-default-toplevel-value symbol value)
   (memento-mori--add-mementos))
