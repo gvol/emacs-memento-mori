@@ -74,3 +74,13 @@ desired reflection.
 
 If the mode-line is too much, you could add it to your
 `org-agenda-custom-commands` or similar.
+
+You can also set memento-mori-initial-scratch-message to a format something like
+"%q\n\n%m\n" so that the initial scratch buffer will contain a random quote
+followed by the current memento.
+
+## Contributing
+
+Feel free to open issues, pull requests, etc.  In particular, I'm sure there are
+many good quotes that I didn't include in `memento-mori-quotes`, so please send
+them in!  Also if you have a good memento, I would love to have those too.
