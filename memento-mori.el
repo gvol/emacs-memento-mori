@@ -46,6 +46,8 @@
 
 ;;; Code:
 
+(require 'format-spec)
+
 (defgroup memento-mori nil
   "Reminder of our mortality."
   :group 'help)
