@@ -343,7 +343,6 @@ This is a floating point number based on `memento-mori-birth-date'."
          (since-value (plist-get args-plist :since))
          (_ (when (not (or until-value since-value))
                  (error ":since or :until required.  Parsing %s" memento)))
-         (current-time-list nil)
          (until-seconds (when until-value
                           (float-time
                            (time-subtract
