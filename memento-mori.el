@@ -370,6 +370,9 @@ This is a floating point number based on `memento-mori-birth-date'."
                    (?p . ,(truncate percent)))
                  'ignore)))
 
+;; Forward declare initial-scratch-message which should be defined at run time
+(defvar initial-scratch-message)
+
 (defun memento-mori--update ()
   "Update `memento-mori-string' based on the current time."
   (let ((has-set-new (not (eq memento-mori-mementos
