@@ -34,14 +34,14 @@
 
 ;; (require 'memento-mori)
 ;; (setq memento-mori-mementos
-;;       '(("%.2f years old" :since "1970-01-01")))
+;;       '(("%.5Y years old" :since "1970-01-01")))
 ;; (memento-mori-mode)
 
 ;; Or using use-package:
 ;; (use-package memento-mori
 ;;   :ensure t
 ;;   :custom (memento-mori-mementos
-;;            '(("%.2f years old" :since "1970-01-01")))
+;;            '(("%.5Y years old" :since "1970-01-01")))
 ;;   :config (memento-mori-mode))
 
 ;;; Code:
@@ -258,7 +258,7 @@ will replace it and the result will be saved in the variable
 The string shown in the mode line and/or frame title when
 `memento-mori-mode' is enabled.  This is not meant to be changed
 by the user, but can be used in other places such as `org-mode'
-agendas to display the current momento.")
+agendas to display the current memento.")
 
 (defun memento-mori--set-value-and-update-display (symbol value)
   "Function to set display values, so the display will then be recalculated.
