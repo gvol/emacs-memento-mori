@@ -257,7 +257,7 @@ will replace it and the result will be saved in the variable
   "The memento mori memento.
 The string shown in the mode line and/or frame title when
 `memento-mori-mode' is enabled.  This is not meant to be changed
-by the user, but can be used in other places such as org-mode
+by the user, but can be used in other places such as `org-mode'
 agendas to display the current momento.")
 
 (defun memento-mori--set-value-and-update-display (symbol value)
@@ -301,9 +301,9 @@ about the format.")
     (error "Birth date not set.  Try M-x customize-group memento-mori")))
 
 (defun memento-mori--parse-time (value)
-  "Return your birth time in `encode-time' format.
-The birth time is parsed from `memento-mori-birth-date' using
-`parse-time-string'.  An error is signaled if it is not valid."
+  "Return time in `encode-time' format.
+The time is parsed from VALUE using `parse-time-string'.
+An error is signaled if it is not valid."
   (when (symbolp value)
     (setq value (symbol-value value)))
   (let* ((decoded (parse-time-string
