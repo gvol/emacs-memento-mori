@@ -56,14 +56,24 @@
   "If non-nil, `memento-mori-mode' will add mementos to the mode line.
 Really, it adds it to the `global-mode-string', which usually
 appears in the mode line, however, if you have customized your
-mode line it may not appear."
+mode line it may not appear.
+
+If your mode line is already customized or the output provided by
+`memento-mori-display-in-modeline' isn't to your liking, you can add
+`memento-mori--modeline-construct' to `mode-line-format' manually
+instead of setting this variable."
   :group 'memento-mori
   :type 'boolean
   :set #'memento-mori--set-value-and-update-display
   :initialize #'custom-initialize-default)
 
 (defcustom memento-mori-display-in-frame-title nil
-  "If non-nil, `memento-mori-mode' will add mementos to the frame title."
+  "If non-nil, `memento-mori-mode' will add mementos to the frame title.
+
+If your frame title is already customized or the output provided by
+`memento-mori-display-in-frame-title' isn't to your liking, you can add
+`memento-mori--frame-title-construct' to `frame-title-format' manually
+instead of setting this variable."
   :group 'memento-mori
   :type 'boolean
   :set #'memento-mori--set-value-and-update-display
