@@ -60,8 +60,8 @@ mode line it may not appear.
 
 If your mode line is already customized or the output provided by
 `memento-mori-display-in-modeline' isn't to your liking, you can add
-`memento-mori--modeline-construct' to `mode-line-format' manually
-instead of setting this variable."
+`memento-mori--modeline-info' to `mode-line-format' manually instead of
+setting this variable."
   :group 'memento-mori
   :type 'boolean
   :set #'memento-mori--set-value-and-update-display
@@ -72,7 +72,7 @@ instead of setting this variable."
 
 If your frame title is already customized or the output provided by
 `memento-mori-display-in-frame-title' isn't to your liking, you can add
-`memento-mori--frame-title-construct' to `frame-title-format' manually
+`memento-mori--frame-title-info' to `frame-title-format' manually
 instead of setting this variable."
   :group 'memento-mori
   :type 'boolean
@@ -282,7 +282,7 @@ Sets SYMBOL to VALUE, then calls updates `memento-mori--update'."
   (set-default-toplevel-value symbol value)
   (memento-mori--update))
 
-(defvar memento-mori--modeline-construct
+(defvar memento-mori--modeline-info
   `(memento-mori-mode
     ((:propertize
       ("" memento-mori-string)
@@ -297,7 +297,7 @@ See `mode-line-format' for information about the format.  It should
 append a space to the `memento-mori-string' which is considered best
 practice for inclusion in `global-mode-string'.")
 
-(defvar memento-mori--frame-title-construct
+(defvar memento-mori--frame-title-info
   `(memento-mori-mode
     (" -- " memento-mori-string))
   "A frame title construct to be added to `frame-title-format'.
@@ -437,16 +437,16 @@ org mode agenda, splash screen, etc."
   (if memento-mori-display-in-modeline
       ;; This assumes that global-mode-string is a list, even though technically
       ;; it could be a string
-      (add-to-list 'global-mode-string memento-mori--modeline-construct)
+      (add-to-list 'global-mode-string memento-mori--modeline-info)
     (setq global-mode-string
           (and global-mode-string
-               (delete memento-mori--modeline-construct global-mode-string))))
+               (delete memento-mori--modeline-info global-mode-string))))
   (if memento-mori-display-in-frame-title
       (setq frame-title-format
-            (list frame-title-format 'memento-mori--frame-title-construct))
+            (list frame-title-format 'memento-mori--frame-title-info))
     (when (listp frame-title-format)
       (setq frame-title-format
-            (delete 'memento-mori--frame-title-construct frame-title-format)))))
+            (delete 'memento-mori--frame-title-info frame-title-format)))))
 
 ;;;###autoload
 (define-minor-mode memento-mori-mode
