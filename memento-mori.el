@@ -255,6 +255,8 @@ of precision depending on if it's longer than 10 years or not."
     "When your time comes to die, be not like those whose hearts are filled with\nfear of death, so that when their time comes they weep and pray for a little\nmore time to live their lives over again in a different way.\nSing your death song, and die like a hero going home.\n\t–Tecumseh"
     "You act like mortals in all that you fear, and like immortals in all that you desire.\n\t—Lucius Annaeus Seneca"
     "You may leave this life at any moment: have this possibility in your mind in\nall that you do or say or think.\n\t—Marcus Aurelius"
+    "Alas! it is not till time, with reckless hand,\nhas torn out half the leaves from the Book of Human Life,\nto light the fires of passion with, from day to day,\nthat man begins to see that the leaves which remain are few in number.\n\t—Henry Wadsworth Longfellow, Hyperion"
+    "The proper function of man is to live, not to exist.\nI shall not waste my days in trying to prolong them.\nI shall use my time.\n\t—Jack London"
     "Your entire life only happens in this moment. The present moment is life itself.\nYet, people live as if the opposite were true and treat the present moment as a\nstepping stone to the next moment – a means to an end.\n\t–Eckhart Tolle")
   "A list of quotes to make you think about mortality.
 If `memento-mori-initial-scratch-message' contains %q, a random quote
