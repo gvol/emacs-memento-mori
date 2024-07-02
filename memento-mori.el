@@ -290,7 +290,7 @@ Sets SYMBOL to VALUE, then calls updates `memento-mori--update'."
       help-echo "mouse-1: Refresh memento\nmouse-2/3: Turn off memento-mori-mode"
       local-map
       ,(make-mode-line-mouse-map
-        'mouse-1 #'memento-mori--update))
+        'mouse-1 (lambda () (interactive) (memento-mori--update))))
      " "))
   "A mode line construct to be added to `global-mode-string'.
 See `mode-line-format' for information about the format.  It should
